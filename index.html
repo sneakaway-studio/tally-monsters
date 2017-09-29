@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tally Product Monsters</title>
+<style>
+
+
+#monster { width: 500px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+/* CSS animation */
+.monster-sprite {
+	width: 1500px; height: 400px;
+	background: url('') left center no-repeat;
+	animation: monster-keyframes 0.4s steps(3) infinite;
+}
+@keyframes monster-keyframes {
+	100% { background-position: -1500px; }
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div id="monster" class="monster-sprite"></div>
+
+
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+
+/**
+ * Generate sprites from Photoshop: https://www.johnwordsworth.com/projects/photoshop-sprite-sheet-generator-script/
+ */
+
+var colors = [
+	"75ec57",
+	"6050f4",
+	"a295f5",
+	"6050f4",
+	"d83e3f",
+	"b5851f",
+	"d83e3f",
+	"71cdb7",
+	"6a44ad"
+]
+
+var monsters = [
+	{ "name":"appliances-blender", "height":400, "width":1500 },
+	{ "name":"car-suv-luxury", "height":400, "width":1500 },
+	{ "name":"game-controller", "height":400, "width":1500 },
+	{ "name":"health-fit-watch", "height":400, "width":1500 },
+	{ "name":"home-furniture-chest", "height":400, "width":1500 },
+	{ "name":"home-house", "height":400, "width":1500 },
+	{ "name":"home-plug", "height":400, "width":1500 },
+	{ "name":"home-tables-stacked", "height":400, "width":1500 },
+//	{ "name":"lady-lamp", "height":400, "width":2500 },
+	{ "name":"surveillance-camera", "height":400, "width":1500 },
+//	{ "name":"hoverboard", "height":400, "width":1500 },
+//	{ "name":"vr-fish", "height":400, "width":1500 },
+//	{ "name":"purse", "height":400, "width":1500 },
+];
+
+
+$(document).ready(function(){
+
+
+function changeBackground(){
+
+	// pick random monster
+	var rm = monsters[ Math.floor(Math.random()*monsters.length) ];
+	// set monster img
+	$('.monster-sprite').css('background-image','url( spritesheets/'+ rm.name +'-sheet.png');
+
+	// pick random color
+	var bg = colors[ Math.floor(Math.random()*colors.length) ];
+	// change color of background
+	$('body').css('background', '#'+bg );
+}
+
+
+var timer  = setInterval(changeBackground, 1500);
+
+changeBackground();
+
+
+
+});
+
+</script>
+</body>
+</html>
