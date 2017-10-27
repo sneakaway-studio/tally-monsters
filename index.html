@@ -52,24 +52,28 @@ var colors = [
 
 $(document).ready(function(){
 
+	var randomObjProperty = function (obj) {
+		var keys = Object.keys(obj)
+		return obj[keys[ keys.length * Math.random() << 0]];
+	};
 
-function changeBackground(){
+	function changeBackground(){
 
-	// pick random monster
-	var rm = monsters[ Math.floor(Math.random()*monsters.length) ];
-	// set monster img
-	$('.monster-sprite').css('background-image','url( spritesheets/'+ rm.name +'-sheet.png');
+		// pick random monster
+		var rm = randomObjProperty(monsters);
+		// set monster img
+		$('.monster-sprite').css('background-image','url( spritesheets/'+ rm.name +'-sheet.png');
 
-	// pick random color
-	var bg = colors[ Math.floor(Math.random()*colors.length) ];
-	// change color of background
-	$('body').css('background', '#'+bg );
-}
+		// pick random color
+		var bg = colors[ Math.floor(Math.random()*colors.length) ];
+		// change color of background
+		$('body').css('background', '#'+bg );
+	}
 
 
-var timer  = setInterval(changeBackground, 1500);
+	var timer  = setInterval(changeBackground, 1500);
 
-changeBackground();
+	changeBackground();
 
 
 
