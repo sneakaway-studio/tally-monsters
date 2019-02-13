@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>Tally Product Monsters</title>
 <style>
-
 
 #monster { width: 500px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
@@ -22,19 +22,19 @@
 
 </style>
 </head>
+
 <body>
 
 <div id="monster" class="monster-sprite"></div>
 
 
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="monster-data.js"></script>
+<!-- <script type="text/javascript" src="monster-data-old.js"></script> -->
+<script type="text/javascript" src="dataById.js"></script>
 <script>
-
-var monsters = monster_data;
-
 /**
- * Generate sprites from Photoshop: https://www.johnwordsworth.com/projects/photoshop-sprite-sheet-generator-script/
+ * Generate sprites from Photoshop:
+ * https://www.johnwordsworth.com/projects/photoshop-sprite-sheet-generator-script/
  */
 
 var colors = [
@@ -49,35 +49,34 @@ var colors = [
 	"6a44ad"
 ];
 
+var timer;
 
-$(document).ready(function(){
-
-	var randomObjProperty = function (obj) {
-		var keys = Object.keys(obj)
-		return obj[keys[ keys.length * Math.random() << 0]];
-	};
-
-	function changeBackground(){
-
-		// pick random monster
-		var rm = randomObjProperty(monsters);
-		// set monster img
-		$('.monster-sprite').css('background-image','url( spritesheets/'+ rm.name +'-sheet.png');
-
-		// pick random color
-		var bg = colors[ Math.floor(Math.random()*colors.length) ];
-		// change color of background
-		$('body').css('background', '#'+bg );
-	}
-
-
-	var timer  = setInterval(changeBackground, 1500);
-
+$(document).ready(function() {
+	// start timer
+	timer = setInterval(changeBackground, 1500);
+	// show first one
 	changeBackground();
-
-
-
 });
+
+// FUNCTIONS
+
+function changeBackground() {
+	// pick random monster
+	var rm = randomObjProperty(dataById);
+	//console.log(rm);
+	// set monster img
+	$('.monster-sprite').css({
+		'background-image': 'url( monsters/' + rm.mid + '-anim-sheet.png'
+	});
+	// set background random color
+	var bg = colors[Math.floor(Math.random() * colors.length)];
+	$('body').css('background', '#' + bg);
+}
+
+var randomObjProperty = function(obj) {
+	var keys = Object.keys(obj)
+	return obj[keys[keys.length * Math.random() << 0]];
+};
 
 </script>
 </body>
