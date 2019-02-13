@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <title>Tally Product Monsters</title>
@@ -14,7 +13,6 @@
 	transform: translate(-50%, -50%);
 }
 
-/* CSS animation */
 .monster-sprite {
 	width: 1500px; height: 400px;
 	background: url('') left center no-repeat;
@@ -25,35 +23,21 @@
 }
 #monster {cursor: none;}
 
-
 </style>
 </head>
-
 <body>
-
 <div id="monster" class="monster-sprite"></div>
-
-
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- <script type="text/javascript" src="monster-data-old.js"></script> -->
 <script type="text/javascript" src="dataById.js"></script>
 <script>
-/**
- * Generate sprites from Photoshop:
- * https://www.johnwordsworth.com/projects/photoshop-sprite-sheet-generator-script/
- */
+// Generate sprites from Photoshop:
+// https://www.johnwordsworth.com/projects/photoshop-sprite-sheet-generator-script/
 
-var colors = [
-	"75ec57",
-	"6050f4",
-	"a295f5",
-	"6050f4",
-	"d83e3f",
-	"b5851f",
-	"d83e3f",
-	"71cdb7",
-	"6a44ad"
-];
+// original colors
+var colors = ["75ec57","6050f4","a295f5","6050f4","d83e3f","b5851f","d83e3f","71cdb7","6a44ad"];
+// colors from the speed of thinking containers 20190213
+colors = ["ff6854", "ff6854", "95e5f1", "6872ff", "ff68dd", "ff7156","ff9c5b", "ff9c5b", "4e71cf"];
 
 var timer;
 
@@ -63,8 +47,6 @@ $(document).ready(function() {
 	// show first one
 	changeBackground();
 });
-
-// FUNCTIONS
 
 function changeBackground() {
 	// pick random monster
