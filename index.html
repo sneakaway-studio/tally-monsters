@@ -92,7 +92,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
-	<script type="text/javascript" src="dataById.js"></script>
+	<script type="text/javascript" src="data/monsters-by-id.js"></script>
+	<script type="text/javascript" src="data/palettes.js"></script>
+	
 	<script>
 		// WATCH OUT FOR QUOTES AND SPECIAL CHARACTERS IN THE CSV!!!!!!!!!!!!!!
 
@@ -133,7 +135,7 @@
 			var found = false;
 			// that has status == 1
 			while (!found) {
-				newMonster = randomObjProperty(dataById);
+				newMonster = randomObjProperty(MonstersById.data);
 				if (newMonster.status !== 0)
 					found = true;
 			}
