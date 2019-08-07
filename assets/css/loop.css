@@ -1,0 +1,75 @@
+html,
+body {
+    background: #461899;
+    background: rgb(81, 30, 162);
+    background: linear-gradient(0deg,
+            rgba(81, 30, 162, 1) 0%,
+            rgba(105, 40, 155, 1) 38%,
+            rgba(81, 30, 162, 1) 100%);
+    font-family: 'Source Sans Pro', sans-serif;
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    color: white;
+    font-size: 1rem;
+}
+.palette {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.monster-text {
+    position: absolute;
+    left: 2%;
+    bottom: 2%;
+    z-index: 100;
+}
+.taxonomy {
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    padding: 0 0 20px 0;
+}
+.taxonomy span {
+    float: left;
+    background: rgba(0, 0, 0, .0);
+    height: 30px;
+}
+.taxonomy span.tier-text {
+    padding: 4px 8px 4px 0;
+}
+.taxonomy span.tier1 {
+    padding-left: 10px;
+}
+.taxonomy svg {
+    float: left;
+    height: 30px;
+    margin: 0;
+    padding: 0 !important;
+}
+.name {
+    clear: both;
+    margin-top: 14px;
+    font-size: 2rem;
+    line-height: normal;
+}
+sup {
+    font-size: 1rem;
+    vertical-align: 8px;
+}
+.monster {
+    width: 500px;
+    margin: 0 auto;
+    transform: scale(1.6);
+    cursor: none;
+}
+.monster-sprite {
+    width: 500px;
+    height: 400px;
+    background: url('') left center no-repeat;
+    animation: monster-keyframes 0.4s steps(3) infinite;
+}
+@keyframes monster-keyframes {
+    100% {
+        background-position: -1500px;
+    }
+}
