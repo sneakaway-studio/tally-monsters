@@ -4,110 +4,166 @@ let timer,
 	mids = [],
 	currentIndex = 0,
 	currentMid = 0,
-	currentMonster = {};
+	currentMonster = {},
+	preloadImagesArr = [];
 
 $(document).ready(function() {
 	getMids();
+	// preload
+	preload(preloadImagesArr);
 	// start timer
 	timer = setInterval(changeMonster, 3500);
 	// show first one
 	changeMonster();
 });
 
+
+
+
+function preload(imageArray, index) {
+	index = index || 0;
+	if (imageArray && imageArray.length > index) {
+		var img = new Image();
+		img.onload = function() {
+			preload(imageArray, index + 1);
+		};
+		// console.log(imageArray[index]);
+		img.src = imageArray[index];
+		$('.preload').append("geg<img src='" + imageArray[index] + "'>");
+	}
+
+
+}
+
 function getMids() {
 	for (var key in MonstersById.data) {
-		mids.push(key);
+		if (MonstersById.data[key].status == 2) {
+			mids.push(key);
+			preloadImagesArr.push('monsters-full/' + MonstersById.data[key].mid + '-anim-sheet.png');
+		}
 	}
 }
 
 function changeMonster() {
+	try {
 
-	// pick monster...
-	var found = false;
-	// that has status == 1
-	while (!found) {
-		// currentMonster = randomObjProperty(MonstersById.data);
-		// get current mid
-		currentMid = mids[currentIndex];
-		// get current monster
-		currentMonster = MonstersById.data[currentMid];
-		if (parseInt(currentMonster.status) >= 2) {
-			found = true;
-		} else {
-			// remove this one
-			delete MonstersById.data[currentMid];
-			// increment
-			currentIndex++;
+		// pick monster...
+		var found = false;
+		// that has status == 1
+		while (!found) {
+			// currentMonster = randomObjProperty(MonstersById.data);
+			// get current mid
+			currentMid = mids[currentIndex];
+			// testing
+			// currentMid = 683; // flower pot
+			// get current monster
+			currentMonster = MonstersById.data[currentMid];
+			if (parseInt(currentMonster.status) >= 2) {
+				found = true;
+			} else {
+				// remove this one
+				// delete MonstersById.data[currentMid];
+				// increment
+				currentIndex++;
+			}
 		}
+		console.log("currentMid=" + currentMid, "currentMonster=" + JSON.stringify(currentMonster));
+
+
+
+
+		let palette = {},
+			paletteArr = [];
+
+		// if palette set in monster then use it
+		if (prop(PalettesByName.data[currentMonster.palette])) {
+			palette = PalettesByName.data[currentMonster.palette];
+			paletteArr = palette.hex;
+		}
+		// else look to see if parent is set
+		else if (prop(PalettesByTier1Id.data[currentMonster.tier1id])) {
+			palette = PalettesByTier1Id.data[currentMonster.tier1id];
+			paletteArr = palette.hex;
+		}
+
+
+		let gradient = {},
+			gradientArr = [],
+			gradientStr = "";
+
+		// is the mid in the gradient IDs?
+		if (GradientsByMid.data[currentMid] && GradientsByMid.data[currentMid].hex1) {
+			gradient = GradientsByMid.data[currentMid];
+			gradientArr = [gradient.hex1, gradient.hex2];
+		} else {
+			gradientArr = ['#000', '#000'];
+		}
+
+		// create gradient
+		gradientStr += "linear-gradient(0deg, " +
+			gradientArr[0] + " 0%," +
+			gradientArr[1] + " 45%," +
+			gradientArr[0] + " 100%)";
+
+
+		$("html").css({
+			"background": gradientArr[0]
+		});
+		$("body").css({
+			"background": gradientStr
+		});
+		$(".palette").html(returnPaletteBoxes(paletteArr));
+
+		createTaxonomyCrumbs(currentMonster, palette);
+
+
+		$(".name").html(currentMonster.name + " monster <sup>cp:" + currentMonster.cp + "</sup>");
+
+		let attacks = "",
+			div = "";
+		for (let i = 0; i < 4; i++) {
+			let attack;
+			// make sure tally doesn't already have that attack
+
+			attack = randomObjProperty(Attacks.data);
+			let img = "sword-pixel-13sq.png";
+			if (attack.type == "defense")
+				img = "shield-pixel-13sq.png";
+			attacks += div + "<img src='assets/img/" + img + "'>" + attack.name;
+			div = " ";
+		}
+
+
+
+		let t =
+        "<div class='monster-details'>"+
+			"<div>IAB Content Taxonomy ID: " + currentMid + "</div>" +
+			"<div>Advertising keywords: <span style='color:" + gradientArr[1] + "'>" + currentMonster.tags.replace(/,/g, ", ") + "</span>" + "</div>" +
+
+			"<div class='attacks'>Attacks: " + attacks + "</div>"+
+            "</div>";
+
+		$(".tags").html(t);
+
+		// set monster img
+		$('.monster-sprite').css({
+			'background-image': 'url("monsters-full/' + currentMonster.mid + '-anim-sheet.png' + '")'
+		});
+
+		// set background random color
+		// original colors
+		//let colors = ["75ec57", "6050f4", "a295f5", "6050f4", "d83e3f", "b5851f", "d83e3f", "71cdb7", "6a44ad"];
+		// colors from the speed of thinking containers 20190213
+		//colors = ["ff6854", "ff6854", "95e5f1", "6872ff", "ff68dd", "ff7156", "ff9c5b", "ff9c5b", "4e71cf"];
+		//var bgColor = colors[Math.floor(Math.random() * colors.length)];
+		//$('body').css('background', '#' + bgColor);
+
+
+		// increase index
+		if (++currentIndex >= mids.length) {
+			currentIndex = 0;
+		}
+	} catch (err) {
+		console.error(err);
 	}
-	console.log("currentMid=" + currentMid, "currentMonster=" + JSON.stringify(currentMonster));
-
-	let palette = {},
-		paletteArr = [];
-
-	// if palette set in monster then use it
-	if (prop(PalettesByName.data[currentMonster.palette])) {
-        palette = PalettesByName.data[currentMonster.palette];
-		paletteArr = palette.hex;
-	}
-	// else look to see if parent is set
-	else if (prop(PalettesByTier1Id.data[currentMonster.tier1id])) {
-        palette = PalettesByTier1Id.data[currentMonster.tier1id];
-		paletteArr = palette.hex;
-	}
-
-
-	let gradient = {},
-		gradientArr = [],
-		gradientStr = "";
-
-	// is the gradient id saved in the monster data?
-	if (currentMonster.gradient && GradientsByMid.data[currentMonster.gradient]) {
-		gradient = GradientsByMid.data[currentMonster.gradient];
-		gradientArr = gradient.hex.split(",");
-	}
-	// or is the mid in the gradient IDs?
-	else if (GradientsByMid.data[currentMid] && GradientsByMid.data[currentMid].hex) {
-		gradient = GradientsByMid.data[currentMid];
-		gradientArr = gradientArr.hex.split(",");
-	}
-
-	// create gradient
-	gradientStr += "linear-gradient(0deg, " +
-		gradientArr[0] + " 0%," +
-		gradientArr[1] + " 45%," +
-		gradientArr[0] + " 100%)";
-
-	$("body").css({
-		"background": gradientStr
-	});
-	$(".palette").html(returnPaletteBoxes(paletteArr));
-
-	createTaxonomyCrumbs(currentMonster, palette);
-
-
-	$(".name").html(currentMonster.name + " monster <sup>cp:" + currentMonster.cp + "</sup>");
-
-	$(".tags").html("This tracker is found on websites containing: " + currentMonster.tags.replace(/,/g, ", "));
-
-	// set monster img
-	$('.monster-sprite').css({
-		'background-image': 'url( monsters-400h/' + currentMonster.mid + '-anim-sheet.png'
-	});
-
-	// set background random color
-	// original colors
-	//let colors = ["75ec57", "6050f4", "a295f5", "6050f4", "d83e3f", "b5851f", "d83e3f", "71cdb7", "6a44ad"];
-	// colors from the speed of thinking containers 20190213
-	//colors = ["ff6854", "ff6854", "95e5f1", "6872ff", "ff68dd", "ff7156", "ff9c5b", "ff9c5b", "4e71cf"];
-	//var bgColor = colors[Math.floor(Math.random() * colors.length)];
-	//$('body').css('background', '#' + bgColor);
-
-
-	// increase index
-	if (++currentIndex >= mids.length) {
-		getMids(); // regenerate mids
-		currentIndex = 0;
-	}
-
 }

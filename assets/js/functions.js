@@ -38,15 +38,21 @@ function createTaxonomyCrumbs(m, p) {
 		}
 		if (m.tier2) {
 			svg2 = SVG('tier2svg').size(20, 30).polygon('0,0 8,15 0,30').fill(p.tier2);
-			$('#tier1svg').css({'background':p.tier2}); // add background color to previous svg
+			$('#tier1svg').css({
+				'background': p.tier2
+			}); // add background color to previous svg
 		}
 		if (m.tier3) {
 			svg3 = SVG('tier3svg').size(20, 30).polygon('0,0 8,15 0,30').fill(p.tier3);
-			$('#tier2svg').css({'background':p.tier3}); // add background color to previous svg
+			$('#tier2svg').css({
+				'background': p.tier3
+			}); // add background color to previous svg
 		}
 		if (m.tier4) {
 			svg4 = SVG('tier4svg').size(20, 30).polygon('0,0 8,15 0,30').fill(p.tier4);
-			$('#tier2svg').css({'background':p.tier3}); // add background color to previous svg
+			$('#tier2svg').css({
+				'background': p.tier3
+			}); // add background color to previous svg
 		}
 
 
@@ -57,13 +63,13 @@ function createTaxonomyCrumbs(m, p) {
 
 
 // return a string of the taxonomy
-function returnTaxonomy(m,p) {
+function returnTaxonomy(m, p) {
 	try {
 		var str = "";
-		if (m.tier1) str += "<span style='padding:3px;background:"+ p.tier1 + "'>" + m.tier1 + "</span>";
-		if (m.tier2) str += "<span style='padding:3px;background:"+ p.tier2 + "'>" + m.tier2 + "</span>";
-		if (m.tier3) str += "<span style='padding:3px;background:"+ p.tier4 + "'>" + m.tier3 + "</span>";
-		if (m.tier4) str += "<span style='padding:3px;background:"+ p.tier5 + "'>" + m.tier4 + "</span>";
+		if (m.tier1) str += "<span style='padding:3px;background:" + p.tier1 + "'>" + m.tier1 + "</span>";
+		if (m.tier2) str += "<span style='padding:3px;background:" + p.tier2 + "'>" + m.tier2 + "</span>";
+		if (m.tier3) str += "<span style='padding:3px;background:" + p.tier3 + "'>" + m.tier3 + "</span>";
+		if (m.tier4) str += "<span style='padding:3px;background:" + p.tier4 + "'>" + m.tier4 + "</span>";
 		return str;
 	} catch (err) {
 		console.error(err);
@@ -108,7 +114,7 @@ function returnPaletteBoxes(palette) {
 			str = "";
 		for (let i = 0; i < arr.length; i++) {
 			if (arr[i] == undefined) break;
-			str += '<span style="float:left;width:2rem;height:2rem;background-color:' + arr[i] + '"> </span>';
+			str += '<span class="palette-box" style="background-color:' + arr[i] + '"> </span>';
 		}
 		return str;
 	} catch (err) {
@@ -121,7 +127,7 @@ function returnGradientStr(arr) {
 		var str = "";
 		for (let i = 0; i < arr.length; i++) {
 			if (arr[i] == undefined) break;
-			if (i > 0) str += ",";
+			if (i > 0) str += "\t";
 			str += '<span style="background-color:' + arr[i] + '">' + arr[i] + '</span>';
 		}
 		return str;
@@ -136,13 +142,29 @@ function returnGradientArr(palette, select) {
 		var arr = palette.split(","),
 			str = "";
 		if (select == "random")
-			return [arr[Math.floor(Math.random() * arr.length)], arr[Math.floor(Math.random() * arr.length)]];
+			//return [arr[Math.floor(Math.random() * arr.length)], arr[Math.floor(Math.random() * arr.length)]];
+			return [randomHex(),randomHex()];
 	} catch (err) {
 		console.error(err);
 	}
 }
 
 
+function randomHex() {
+	let r = Math.floor(Math.random() * 255),
+		g = Math.floor(Math.random() * 255),
+		b = Math.floor(Math.random() * 255);
+	return rgbToHex(r, g, b);
+}
+
+function rgbToHex(r, g, b) {
+	return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function componentToHex(c) {
+	var hex = c.toString(16);
+	return hex.length == 1 ? "0" + hex : hex;
+}
 
 //  GENERAL
 

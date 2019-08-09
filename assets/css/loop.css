@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 html,
 body {
     background: #461899;
@@ -8,26 +11,37 @@ body {
             rgba(81, 30, 162, 1) 100%);
     font-family: 'Source Sans Pro', sans-serif;
     width: 100%;
-    margin: 0;
     height: 100%;
+    padding: 0;
+    margin: 0;
     color: white;
     font-size: 1rem;
 }
+.preload { display: none;}
 .palette {
     position: absolute;
     right: 0;
     top: 0;
 }
+.palette-box {
+    float: left;
+    width: 2.5rem;
+    height: 2.5rem;
+}
 .monster-text {
     position: absolute;
-    left: 2%;
-    bottom: 2%;
+    left: 3%;
+    bottom: 3%;
     z-index: 100;
+    width: 700px;
+}
+.monster-details div {
+    margin: 6px 0 6px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.18);
 }
 .taxonomy {
-    box-sizing: border-box;
     font-size: 0.9rem;
-    padding: 0 0 20px 0;
+    padding: 0 0 30px 0;
 }
 .taxonomy span {
     float: left;
@@ -46,30 +60,59 @@ body {
     margin: 0;
     padding: 0 !important;
 }
+.attacks {
+
+}
+.attacks img {
+    padding: 0 3px 0 6px;
+}
 .name {
     clear: both;
     margin-top: 14px;
+    margin-bottom: 8px;
     font-size: 2rem;
     line-height: normal;
 }
 sup {
-    font-size: 1rem;
-    vertical-align: 8px;
+    font-size: 1.1rem;
+    vertical-align: 11px;
 }
+.lower-gradient {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, .3) 50%, rgba(0, 0, 0, 0) 100%);
+}
+.centered {
+    position: fixed;
+    /* transform: scale(0.9); */
+    top: 45%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform-origin: center top;
+    zoom: .725;
+    transform: translate(-50%, -50%);
+}
+
 .monster {
-    width: 500px;
-    margin: 0 auto;
-    transform: scale(1.6);
+    /* border: 1px solid #ffffff55; */
+    width: 1500px;
+    margin: 0;
+    padding: 0;
     cursor: none;
+    overflow: none;
 }
 .monster-sprite {
-    width: 500px;
-    height: 400px;
+    margin: 0 auto;
+    height: 1200px;
     background: url('') left center no-repeat;
     animation: monster-keyframes 0.4s steps(3) infinite;
 }
 @keyframes monster-keyframes {
     100% {
-        background-position: -1500px;
+        background-position: -4500px;
     }
 }

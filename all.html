@@ -10,10 +10,7 @@
 	<style>
 		html,
 		body {
-			background: #461899;
-
-			background: rgb(81, 30, 162);
-			background: linear-gradient(0deg, rgba(81, 30, 162, 1) 0%, rgba(105, 40, 155, 1) 48%, rgba(81, 30, 162, 1) 100%);
+			background: #000;
 
 			font-family: 'Source Sans Pro', sans-serif;
 			width: 100%;
@@ -29,27 +26,40 @@
 
 		.taxonomy {
 			color: white;
-			font-size: 1rem;
+			font-size: .8rem;
+		}
+		.palettes {
+			height: 40px;
+			padding-bottom: 30px;
+		}
+		.palette-box {
+		    float: left;
+		    width: 1rem;
+		    height: 1rem;
 		}
 
-
 		.monster-wrapper {
-			padding: 30px;
+			width: 100%;
+			text-align: center;
+			padding: 100px 0;
 		}
 
 		.monster {
-			width: 250px;
+
+			display: inline-block;
+			width: 375px;
+			/* border: 1px solid #fff; */
 		}
 
 		.monster-sprite {
-			height: 200px;
+			height: 300px;
 			background: url('') left center no-repeat;
 			animation: monster-keyframes 0.4s steps(3) infinite;
 		}
 
 		@keyframes monster-keyframes {
 			100% {
-				background-position: -750px;
+				background-position: -1125px;
 			}
 		}
 	</style>
@@ -67,16 +77,16 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
-	<script type="text/javascript" src="assets/js/functions.js"></script>
-	<script type="text/javascript" src="data/monsters-by-id.js"></script>
-	<script type="text/javascript" src="data/palettes-by-name.js"></script>
-	<script type="text/javascript" src="data/palettes-by-tier1id.js"></script>
-	<script type="text/javascript" src="data/gradients-by-mid.js"></script>
+	<script src="assets/js/functions.js"></script>
+	<script src="data/monsters-by-id.js"></script>
+	<script src="data/palettes-by-name.js"></script>
+	<script src="data/palettes-by-tier1id.js"></script>
+	<script src="data/gradients-by-mid.js"></script>
 
 	<script>
 		var timer, newMonster, oldMonster, row = 1,
 			col = 1,
-			colMax = 8,
+			colMax = 3,
 			currentMonster = {},
 			currentMid = 0;
 
@@ -99,17 +109,20 @@
 
 				// if palette set in monster then use it
 				if (prop(PalettesByName.data[currentMonster.palette])) {
-			        palette = PalettesByName.data[currentMonster.palette];
+					palette = PalettesByName.data[currentMonster.palette];
 					paletteArr = palette.hex;
 				}
 				// else look to see if parent is set
 				else if (prop(PalettesByTier1Id.data[currentMonster.tier1id])) {
-			        palette = PalettesByTier1Id.data[currentMonster.tier1id];
+					palette = PalettesByTier1Id.data[currentMonster.tier1id];
 					paletteArr = palette.hex;
 				}
 
 				// display each 6 times
-				for (let i = 0; i < 12; i++) {
+
+				let iterations = 1; // change this to < 12 to see variations in gradients
+
+				for (let i = 0; i < iterations; i++) {
 
 					// should we add new row?
 					if (col === 1) {
@@ -124,43 +137,43 @@
 						gradientArr = [],
 						gradientStr = "";
 
-					// is the gradient id saved in the monster data?
-					if (i ==0 && currentMonster.gradient && GradientsByMid.data[currentMonster.gradient]) {
-						gradient = GradientsByMid.data[currentMonster.gradient];
-						gradientArr = gradient.hex.split(",");
-						gradientStr = "border: 5px solid #000;"
-					}
-					// or is the mid in the gradient IDs?
-					else if (i ==0 && GradientsByMid.data[currentMid] && GradientsByMid.data[currentMid].hex) {
+					// is the mid in the gradient IDs?
+					if (i == 0 && GradientsByMid.data[currentMid] && GradientsByMid.data[currentMid].hex1) {
 						gradient = GradientsByMid.data[currentMid];
-						gradientArr = gradient.hex.split(",");
-						gradientStr = "border: 5px solid #000;"
+						gradientArr = [gradient.hex1, gradient.hex2];
+						if (iterations > 1) gradientStr = "border: 10px solid #888;"
 					} else {
-						// get random
-						//let gradient = returnGradientArr(palette,"");
-						gradient = returnGradientArr(paletteArr, "random");
+						if (iterations == 1)
+							// show it black so we know
+							gradientArr = ['#000','#000'];
+						else
+							// get random gradient for iterations
+							gradientArr = returnGradientArr(paletteArr, "random");
+
 					}
 					// create gradient
 					gradientStr += "background: linear-gradient(0deg, " +
-						gradient[0] + " 0%," +
-						gradient[1] + " 45%," +
-						gradient[0] + " 100%);"
+						gradientArr[0] + " 0%," +
+						gradientArr[1] + " 45%," +
+						gradientArr[0] + " 100%);"
 
-
+console.log(currentMid, gradient)
 
 					str += "<div class='monster-wrapper' style='" + gradientStr + "'>";
 					str += '<div class="monster align-items-center">';
-					str += '<div class="monster-sprite" style="background-image:url(monsters-200h/' + currentMonster.mid + '-anim-sheet.png)"></div>';
+					str += '<div class="monster-sprite" style="background-image:url(monsters-300h/' + currentMonster.mid + '-anim-sheet.png)"></div>';
 					str += '</div>';
 					str += '</div>'; // /monster-wrapper
+					str += '<div style="position:relative;width:100%;bottom:42px;left:10px" class="taxonomy"><div>' + returnTaxonomy(currentMonster, palette) + '</div>';
+					str += '<div style="color:'+ gradientArr[1] +'" class="text">This is some text</div></div>';
 
-					str += '<div class="taxonomy">' + returnTaxonomy(currentMonster,palette) +
-						' <br>mid=' + key +
+
+					str += '<div>mid=' + key +
 						', status=' + currentMonster.status +
-						', gradient=' + returnGradientStr(gradient) + '</div>';
+						', gradient=' + returnGradientStr(gradientArr) + '</div>';
 					// str += "<p>" + JSON.stringify(currentMonster) + "</p>";
 					//str += "<p>" + JSON.stringify(palette) + "</p>";
-					str += "<p>" + returnPaletteBoxes(paletteArr) + "</p>";
+					str += "<div class='palettes'>" + returnPaletteBoxes(paletteArr) + "</div>";
 
 
 
