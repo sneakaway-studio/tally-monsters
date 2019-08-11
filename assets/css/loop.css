@@ -116,3 +116,8 @@ sup {
         background-position: -4500px;
     }
 }
+
+.slider {
+    position: absolute;
+    z-index: 200;
+}

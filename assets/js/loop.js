@@ -2,6 +2,7 @@
 
 let timer,
 	mids = [],
+    staticIndex = -1,
 	currentIndex = 0,
 	currentMid = 0,
 	currentMonster = {},
@@ -51,11 +52,16 @@ function changeMonster() {
 		var found = false;
 		// that has status == 1
 		while (!found) {
+            // random
 			// currentMonster = randomObjProperty(MonstersById.data);
+
+            // testing (with slider)
+            if (staticIndex >= 0) currentIndex =staticIndex;
+
 			// get current mid
 			currentMid = mids[currentIndex];
 			// testing
-			// currentMid = 683; // flower pot
+			// currentMid = 218; // flower pot
 			// get current monster
 			currentMonster = MonstersById.data[currentMid];
 			if (parseInt(currentMonster.status) >= 2) {
@@ -136,12 +142,12 @@ function changeMonster() {
 
 
 		let t =
-        "<div class='monster-details'>"+
+			"<div class='monster-details'>" +
 			"<div>IAB Content Taxonomy ID: " + currentMid + "</div>" +
 			"<div>Advertising keywords: <span style='color:" + gradientArr[1] + "'>" + currentMonster.tags.replace(/,/g, ", ") + "</span>" + "</div>" +
 
-			"<div class='attacks'>Attacks: " + attacks + "</div>"+
-            "</div>";
+			"<div class='attacks'>Attacks: " + attacks + "</div>" +
+			"</div>";
 
 		$(".tags").html(t);
 
@@ -167,3 +173,10 @@ function changeMonster() {
 		console.error(err);
 	}
 }
+
+
+
+$('#slider').on('input', function() {
+	staticIndex = $(this).val();
+    changeMonster();
+});
