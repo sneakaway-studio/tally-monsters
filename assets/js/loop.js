@@ -1,8 +1,11 @@
 "use strict";
 
-let timer,
+let test = true,
+	timer,
 	mids = [],
-    staticIndex = -1,
+	staticIndex = -1,
+	minIndex = 0,
+	maxIndex = 0,
 	currentIndex = 0,
 	currentMid = 0,
 	currentMonster = {},
@@ -43,6 +46,15 @@ function getMids() {
 			preloadImagesArr.push('monsters-full/' + MonstersById.data[key].mid + '-anim-sheet.png');
 		}
 	}
+	maxIndex = mids.length;
+	if (test) {
+		// set max in slider
+		$('#slider').attr("min", minIndex);
+		$('#slider').attr("max", maxIndex);
+		$('.slider-wrapper').css({
+			"display": "block"
+		});
+	}
 }
 
 function changeMonster() {
@@ -52,11 +64,11 @@ function changeMonster() {
 		var found = false;
 		// that has status == 1
 		while (!found) {
-            // random
+			// random
 			// currentMonster = randomObjProperty(MonstersById.data);
 
-            // testing (with slider)
-            if (staticIndex >= 0) currentIndex =staticIndex;
+			// testing (with slider)
+			if (staticIndex >= 0) currentIndex = staticIndex;
 
 			// get current mid
 			currentMid = mids[currentIndex];
@@ -75,8 +87,8 @@ function changeMonster() {
 		}
 		console.log("currentMid=" + currentMid, "currentMonster=" + JSON.stringify(currentMonster));
 
-
-
+		// update slider
+		$("#slider").val(currentIndex);
 
 		let palette = {},
 			paletteArr = [];
@@ -139,12 +151,15 @@ function changeMonster() {
 			div = " ";
 		}
 
-
+		// default link color
+		let linkColor = gradientArr[1];
+		// if
+		if (gradient.links) linkColor = gradient.links;
 
 		let t =
 			"<div class='monster-details'>" +
 			"<div>IAB Content Taxonomy ID: " + currentMid + "</div>" +
-			"<div>Advertising keywords: <span style='color:" + gradientArr[1] + "'>" + currentMonster.tags.replace(/,/g, ", ") + "</span>" + "</div>" +
+			"<div>Advertising keywords: <span style='color:" + linkColor + "'>" + currentMonster.tags.replace(/,/g, ", ") + "</span>" + "</div>" +
 
 			"<div class='attacks'>Attacks: " + attacks + "</div>" +
 			"</div>";
@@ -178,5 +193,5 @@ function changeMonster() {
 
 $('#slider').on('input', function() {
 	staticIndex = $(this).val();
-    changeMonster();
+	changeMonster();
 });

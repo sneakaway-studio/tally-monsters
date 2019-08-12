@@ -121,3 +121,6 @@ sup {
     position: absolute;
     z-index: 200;
 }
+.slider-wrapper {
+    display: none;
+}
