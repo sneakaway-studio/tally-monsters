@@ -5,7 +5,7 @@
 
 ## Description
 
-The exhibition version of the rotating product monsters from Tally. Following are instructions for different platforms.
+The exhibition version of the rotating product monsters from Tally (on right in above image). Following are instructions for different platforms.
 
 
 
