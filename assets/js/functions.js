@@ -139,7 +139,7 @@ function returnGradientArr(palette, select) {
 			str = "";
 		if (select == "random")
 			//return [arr[Math.floor(Math.random() * arr.length)], arr[Math.floor(Math.random() * arr.length)]];
-			return [randomHex(),randomHex()];
+			return [randomHex(), randomHex()];
 	} catch (err) {
 		console.error(err);
 	}
@@ -161,6 +161,47 @@ function componentToHex(c) {
 	var hex = c.toString(16);
 	return hex.length == 1 ? "0" + hex : hex;
 }
+
+
+
+/**
+ *	Make ele fullscreen
+ */
+function toggleFullscreen(eleStr = '#presentation') {
+	// if already full screen; exit
+	if (
+		document.fullscreenElement ||
+		document.webkitFullscreenElement ||
+		document.mozFullScreenElement ||
+		document.msFullscreenElement
+	) {
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
+	}
+	// else go fullscreen
+	else {
+		let element = $(eleStr).get(0);
+		if (element.requestFullscreen) {
+			element.requestFullscreen();
+		} else if (element.mozRequestFullScreen) {
+			element.mozRequestFullScreen();
+		} else if (element.webkitRequestFullscreen) {
+			element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+		} else if (element.msRequestFullscreen) {
+			element.msRequestFullscreen();
+		}
+	}
+}
+
+
+
 
 //  GENERAL
 

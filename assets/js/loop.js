@@ -130,6 +130,7 @@ function changeMonster() {
 		$("body").css({
 			"background": gradientStr
 		});
+		// fill palette colors
 		$(".palette").html(returnPaletteBoxes(paletteArr));
 
 		createTaxonomyCrumbs(currentMonster, palette);
@@ -190,7 +191,10 @@ function changeMonster() {
 }
 
 
-
+// make clickable for fullscreen
+$(document).on("click", "#showFullScreen", function(){
+	toggleFullscreen();
+});
 $('#slider').on('input', function() {
 	staticIndex = $(this).val();
 	changeMonster();
