@@ -3,7 +3,7 @@
 
 // PROJECT
 
-// return a string of the taxonomy
+// return breadcrumb-formatted taxonomy
 function createTaxonomyCrumbs(m, p) {
 	try {
 		let str = "",
@@ -26,13 +26,9 @@ function createTaxonomyCrumbs(m, p) {
 		}
 		// finish last span
 		str += "</span>";
-
 		// add html string
 		$(".taxonomy").html(str);
-		// old way
-		// str += "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' preserveAspectRatio='none'>" +
-		// 	"<polygon class='tier3' style='fill:" + p.tier3 + "' points='0,0 10,0 14,10 10,20 0,20'/></svg>";
-		// add svgs
+		// once elements are on page add svgs
 		if (m.tier1) {
 			svg1 = SVG('tier1svg').size(20, 30).polygon('0,0 8,15 0,30').fill(p.tier1);
 		}
