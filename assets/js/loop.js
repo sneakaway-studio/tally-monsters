@@ -123,13 +123,15 @@ function changeMonster() {
 			gradientArr[1] + " 45%," +
 			gradientArr[0] + " 100%)";
 
-
-		$("html").css({
+		// set background color behind gradient
+		$("body").css({
 			"background": gradientArr[0]
 		});
-		$("body").css({
+		// set gradient over background color 
+		$("#presentation").css({
 			"background": gradientStr
 		});
+
 		// fill palette colors
 		$(".palette").html(returnPaletteBoxes(paletteArr));
 

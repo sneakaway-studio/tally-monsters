@@ -2,7 +2,8 @@
     box-sizing: border-box;
 }
 html,
-body {
+body,
+#presentation {
     background: #461899;
     background: rgb(81, 30, 162);
     background: linear-gradient(0deg,
