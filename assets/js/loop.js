@@ -85,7 +85,7 @@ function changeMonster() {
 				currentIndex++;
 			}
 		}
-		console.log("currentMid=" + currentMid, "currentMonster=" + JSON.stringify(currentMonster));
+		// console.log("currentMid=" + currentMid, "currentMonster=" + JSON.stringify(currentMonster));
 
 		// update slider
 		$("#slider").val(currentIndex);
@@ -127,7 +127,7 @@ function changeMonster() {
 		$("body").css({
 			"background": gradientArr[0]
 		});
-		// set gradient over background color 
+		// set gradient over background color
 		$("#presentation").css({
 			"background": gradientStr
 		});
