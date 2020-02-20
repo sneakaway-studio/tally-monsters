@@ -1,6 +1,6 @@
 "use strict";
 
-let test = true,
+let test = false,
 	timer,
 	mids = [],
 	staticIndex = -1,
