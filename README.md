@@ -1,4 +1,4 @@
-![Gallery view](assets/img/VanEverySmith091119__10-fixed.png | width=100)
+![Gallery view](assets/img/VanEverySmith091119__10-fixed.png?raw=true "Gallery view")
 
 # Tally Product Monsters
 
