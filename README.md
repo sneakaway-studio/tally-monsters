@@ -1,6 +1,8 @@
 
 [image here]
 
+![Gallery view](assets/img/VanEverySmith091119__10-fixed.png?raw=true "Gallery view")
+
 # Tally Product Monsters
 
 
@@ -38,3 +40,6 @@ These instructions are for using a raspberry pi computer provided by us
 
 1. Type `F11` (`FN` + `F11` on the black mobile keyboard) to exit fullscreen
 2. When the exhibition is over, click the Pi menu and choose Shutdown
+
+
+![Grid of monsters](assets/img/grid-product-monsters-800w.png?raw=true "Grid of monsters")
