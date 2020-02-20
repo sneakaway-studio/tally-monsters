@@ -6,14 +6,14 @@
 
 ## Description
 
-Rotating product monsters from Tally.
+The exhibition version of the rotating product monsters from Tally.
 
 
 
 
 ## Platforms
 
-### Raspberry Pi Exhibition Instructions
+### Raspberry Pi Instructions
 
 1. Plug-in the HDMI to a display and then power cable on the Raspberry Pi
 2. Once it boots, double-click the script on the desktop called `start-full-screen.sh`
