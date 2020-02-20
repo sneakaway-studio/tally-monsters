@@ -1,5 +1,13 @@
 
-### Raspberry Pi Setup Instructions
+
+
+
+## Raspberry Pi 
+
+* `exhibitpi2019`
+
+
+### Setup Instructions
 
 1. A Raspberry Pi 3 with Chromium Browser, Apache2, Git
 2. Purge unused software 
