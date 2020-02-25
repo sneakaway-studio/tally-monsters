@@ -15,7 +15,7 @@ The exhibition version of the rotating product monsters from Tally (on right in 
 The following version works on any computer and has been tested with: Mac10.14/Chrome80 and Linux/Chromium. To run:
 
 1. Go to [https://owenmundy.com/docs/works/tally/tally-monsters/loop.html](https://owenmundy.com/docs/works/tally/tally-monsters/loop.html)
-2. Click the color bars at the top right to make it fullscreen, and again to exit
+2. Click the color palette at the top right to make it fullscreen, and again to exit
 3. The mouse will disappear after 1 second of inactivity
 
 
