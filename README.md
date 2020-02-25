@@ -12,29 +12,24 @@ The exhibition version of the rotating product monsters from Tally (on right in 
 
 ## Mac / PC / Linux
 
-The following works on any computer and has been tested with: Mac10.14/Chrome80;
-
-### Start Instructions
+The following version works on any computer and has been tested with: Mac10.14/Chrome80 and Linux/Chromium. To run:
 
 1. Go to [https://owenmundy.com/docs/works/tally/tally-monsters/loop.html](https://owenmundy.com/docs/works/tally/tally-monsters/loop.html)
 2. Click the color bars at the top right to make it fullscreen, and again to exit
-3. The mouse will disappear after 1 second
+3. The mouse will disappear after 1 second of inactivity
 
 
 
 
 ## Raspberry Pi
 
-These instructions are for using a raspberry pi computer provided by us
-
-### Start Instructions
+Follow these instructions when using a raspberry pi computer we provide:
 
 1. Connect the Raspberry Pi to a display via HDMI and then connect the power cable on the Raspberry Pi
 2. Once the Pi boots, double-click the script on the desktop called `start-full-screen.sh`
 3. At the dialog, select "Execute" and it will launch the project fullscreen
 
-### Stop Instructions
-
+To exit:
 1. Type `F11` (`FN` + `F11` on the black mobile keyboard) to exit fullscreen
 2. When the exhibition is over, click the Pi menu and choose Shutdown
 
