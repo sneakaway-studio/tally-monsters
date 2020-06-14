@@ -43,7 +43,7 @@ function getMids() {
 	for (var key in MonstersById.data) {
 		if (MonstersById.data[key].status == 2) {
 			mids.push(key);
-			preloadImagesArr.push('monsters-full/' + MonstersById.data[key].mid + '-anim-sheet.png');
+			preloadImagesArr.push('monsters/monsters-full/' + MonstersById.data[key].mid + '-anim-sheet.png');
 		}
 	}
 	maxIndex = mids.length;
@@ -171,7 +171,7 @@ function changeMonster() {
 
 		// set monster img
 		$('.monster-sprite').css({
-			'background-image': 'url("monsters-full/' + currentMonster.mid + '-anim-sheet.png' + '")'
+			'background-image': 'url("monsters/monsters-full/' + currentMonster.mid + '-anim-sheet.png' + '")'
 		});
 
 		// set background random color
