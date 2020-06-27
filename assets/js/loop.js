@@ -16,7 +16,7 @@ $(document).ready(function() {
 	// preload
 	preload(preloadImagesArr);
 	// start timer
-	timer = setInterval(changeMonster, 3500);
+	timer = setInterval(changeMonster, 10000); // 3500
 	// show first one
 	changeMonster();
 });
