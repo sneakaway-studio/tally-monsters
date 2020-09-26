@@ -130,7 +130,9 @@ sup {
 .slider {
     position: absolute;
     z-index: 200;
+	width: 300px;
 }
 .slider-wrapper {
     display: none;
+	width: 300px;
 }

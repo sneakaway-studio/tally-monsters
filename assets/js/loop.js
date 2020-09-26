@@ -90,20 +90,16 @@ function changeMonster() {
 		// update slider
 		$("#slider").val(currentIndex);
 
-		let palette = {},
-			paletteArr = [];
-
-		// if palette set in monster then use it
-		if (prop(PalettesByName.data[currentMonster.palette])) {
-			palette = PalettesByName.data[currentMonster.palette];
-			paletteArr = palette.hex;
-		}
-		// else look to see if parent is set
-		else if (prop(PalettesByTier1Id.data[currentMonster.tier1id])) {
-			palette = PalettesByTier1Id.data[currentMonster.tier1id];
-			paletteArr = palette.hex;
-		}
-
+		Mousetrap.bind('s', function() {
+			if ($(".slider-wrapper").css('display') == 'none')
+				$(".slider-wrapper").css({
+					'display': 'block'
+				});
+			else
+				$(".slider-wrapper").css({
+					'display': 'none'
+				});
+		});
 
 		let gradient = {},
 			gradientArr = [],
@@ -132,27 +128,21 @@ function changeMonster() {
 			"background": gradientStr
 		});
 
+		// get palette for this monster
+		let [paletteObj, paletteArr] = returnPaletteData(currentMonster);
+
 		// fill palette colors
 		$(".palette").html(returnPaletteBoxes(paletteArr));
 
-		createTaxonomyCrumbs(currentMonster, palette);
+		createTaxonomyCrumbs(currentMonster, paletteObj);
 
 
 		$(".name").html(currentMonster.name + " monster <sup>cp:" + currentMonster.cp + "</sup>");
 
-		let attacks = "",
-			div = "";
-		for (let i = 0; i < 4; i++) {
-			let attack;
-			// make sure tally doesn't already have that attack
+		// pick random attacks
+		let attacks = returnRandomAttackStr(Attacks.data);
 
-			attack = randomObjProperty(Attacks.data);
-			let img = "sword-pixel-13sq.png";
-			if (attack.type == "defense")
-				img = "shield-pixel-13sq.png";
-			attacks += div + "<img src='assets/img/" + img + "'>" + attack.name;
-			div = " ";
-		}
+
 
 		// default link color
 		let linkColor = gradientArr[1];
@@ -193,8 +183,41 @@ function changeMonster() {
 }
 
 
+function returnRandomAttackStr(d) {
+	try {
+
+		let attacks = "",
+			div = "";
+
+		for (let i = 0; i < 4; i++) {
+			let attack = randomObjProperty(d);
+
+			let img = "sword-pixel-13sq.png";
+			if (attack.type == "defense")
+				img = "shield-pixel-13sq.png";
+
+			attacks += div + "<img src='assets/img/" + img + "'>" + attack.name;
+
+			// reset separator
+			div = " ";
+		}
+
+		return attacks;
+
+	} catch (err) {
+		console.error(err);
+	}
+}
+
+
+
+
+
+
+
+
 // make clickable for fullscreen
-$(document).on("click", "#showFullScreen", function(){
+$(document).on("click", "#showFullScreen", function() {
 	toggleFullscreen();
 });
 $('#slider').on('input', function() {
