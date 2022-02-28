@@ -35,3 +35,14 @@ To exit:
 
 
 ![Grid of monsters](assets/img/grid-product-monsters-800w.png?raw=true "Grid of monsters")
+
+
+## Dev Notes
+
+There are two versions of the Product Monster "Cards":
+
+- Looping animation
+    - https://owenmundy.com/docs/works/tally/tally-monsters/loop.html
+    - Press "s" to see scrubber / slider
+- Grid of all monsters
+    - https://owenmundy.com/docs/works/tally/tally-monsters/all.html
